@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">MedCom</string>
+    <string name="app_title">MedCom</string>
+    <string name="subtitle">Your emergency connect…</string>
+    <string name="message_select_option">select an option below</string>
+    <string name="action_settings">Settings</string>
+    <string name="hospital_card_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit</string>
+    <string name="request">Request</string>
+</resources>
