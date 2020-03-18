@@ -741,12 +741,14 @@ id expanded_menu
 id fill
 id fill_horizontal
 id fill_vertical
+id fire
 id forever
 id gone
 id group_divider
 id groups
 id home
 id homeAsUp
+id hospital
 id icon
 id icon_group
 id ifRoom
@@ -774,6 +776,7 @@ id packed
 id parent
 id parentPanel
 id percent
+id police
 id progress_circular
 id progress_horizontal
 id radio
@@ -867,6 +870,7 @@ layout abc_search_view
 layout abc_select_dialog_material
 layout abc_tooltip
 layout activity_main
+layout activity_main2
 layout content_main
 layout facilty_card
 layout fire_card
