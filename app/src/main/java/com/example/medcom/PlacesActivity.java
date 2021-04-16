@@ -52,7 +52,7 @@ public class PlacesActivity extends AppCompatActivity {
                 .build();
         APIService apiService = retrofit.create(APIService.class);
         apiService.getPlaces(lat + "," + lng,message,true,"distance",message,
-                "")
+                " ")
                 .enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
