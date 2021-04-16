@@ -41,9 +41,9 @@
 24        android:testOnly="true"
 25        android:theme="@style/AppTheme" >
 25-->/home/jonathan/jonathan/medic-repo/MedCom/app/src/main/AndroidManifest.xml:14:9-40
-26        <activity android:name="com.example.medcom.MainActivity2" />
-26-->/home/jonathan/jonathan/medic-repo/MedCom/app/src/main/AndroidManifest.xml:15:9-60
-26-->/home/jonathan/jonathan/medic-repo/MedCom/app/src/main/AndroidManifest.xml:15:19-48
+26        <activity android:name="com.example.medcom.PlacesActivity" />
+26-->/home/jonathan/jonathan/medic-repo/MedCom/app/src/main/AndroidManifest.xml:15:9-61
+26-->/home/jonathan/jonathan/medic-repo/MedCom/app/src/main/AndroidManifest.xml:15:19-49
 27        <activity android:name="com.example.medcom.MainActivity" >
 27-->/home/jonathan/jonathan/medic-repo/MedCom/app/src/main/AndroidManifest.xml:16:9-22:20
 27-->/home/jonathan/jonathan/medic-repo/MedCom/app/src/main/AndroidManifest.xml:16:19-47

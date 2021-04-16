@@ -1215,10 +1215,12 @@ drawable facility
 drawable fire
 drawable googleg_disabled_color_18
 drawable googleg_standard_color_18
+drawable hospital
 drawable ic_action_facility
 drawable ic_action_facility_1
 drawable ic_action_fire
 drawable ic_action_police
+drawable ic_broken_image
 drawable ic_launcher_background
 drawable ic_launcher_foreground
 drawable ic_mtrl_chip_checked_black
@@ -1331,6 +1333,7 @@ id bounce
 id button2
 id buttonPanel
 id cache_measures
+id carView
 id card1
 id card2
 id cardView
@@ -1342,6 +1345,7 @@ id chains
 id checkbox
 id checked
 id chronometer
+id clicktext
 id clip_horizontal
 id clip_vertical
 id collapseActionView
@@ -1440,6 +1444,7 @@ id motion_base
 id mtrl_child_content_container
 id mtrl_internal_children_alpha_tag
 id multiply
+id name
 id navigation_header_container
 id never
 id none
@@ -1468,6 +1473,7 @@ id progress_horizontal
 id radio
 id ratio
 id rectangles
+id recycler_view
 id reverseSawtooth
 id right
 id right_icon
@@ -1565,6 +1571,7 @@ id uniform
 id unlabeled
 id up
 id useLogo
+id vicinity
 id view_offset_helper
 id visible
 id wide
@@ -1627,7 +1634,7 @@ layout abc_search_view
 layout abc_select_dialog_material
 layout abc_tooltip
 layout activity_main
-layout activity_main2
+layout activity_places
 layout content_main
 layout custom_dialog
 layout design_bottom_navigation_item
@@ -1654,6 +1661,7 @@ layout notification_template_custom_big
 layout notification_template_icon_group
 layout notification_template_part_chronometer
 layout notification_template_part_time
+layout place_list_item
 layout police_card
 layout select_dialog_item_material
 layout select_dialog_multichoice_material

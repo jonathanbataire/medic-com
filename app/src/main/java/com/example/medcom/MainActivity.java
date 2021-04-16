@@ -87,8 +87,8 @@ public class MainActivity extends AppCompatActivity  implements LocationListener
             public void onClick(View view) {
                 if (lat > 0 && lng > 0){
                     //Toast.makeText(MainActivity.this,Double.toString(lat),Toast.LENGTH_LONG).show();
-                    Intent myIntent = new Intent(MainActivity.this, MainActivity2.class);
-                    myIntent.putExtra("message", "health");
+                    Intent myIntent = new Intent(MainActivity.this, PlacesActivity.class);
+                    myIntent.putExtra("message", "hospital");
                     myIntent.putExtra("latitude",lat);
                     myIntent.putExtra("longitude",lng);
                     MainActivity.this.startActivity(myIntent);
@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity  implements LocationListener
             public void onClick(View view) {
                 if (lat > 0 && lng > 0){
                     //Toast.makeText(MainActivity.this,Double.toString(lat),Toast.LENGTH_LONG).show();
-                    Intent myIntent = new Intent(MainActivity.this, MainActivity2.class);
+                    Intent myIntent = new Intent(MainActivity.this, PlacesActivity.class);
                     myIntent.putExtra("message", "fire");
                     myIntent.putExtra("latitude",lat);
                     myIntent.putExtra("longitude",lng);
@@ -119,7 +119,7 @@ public class MainActivity extends AppCompatActivity  implements LocationListener
             public void onClick(View view) {
                 if (lat > 0 && lng > 0){
                     //Toast.makeText(MainActivity.this,Double.toString(lat),Toast.LENGTH_LONG).show();
-                    Intent myIntent = new Intent(MainActivity.this, MainActivity2.class);
+                    Intent myIntent = new Intent(MainActivity.this, PlacesActivity.class);
                     myIntent.putExtra("message", "police");
                     myIntent.putExtra("latitude",lat);
                     myIntent.putExtra("longitude",lng);
