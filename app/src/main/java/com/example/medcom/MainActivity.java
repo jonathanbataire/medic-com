@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity  implements LocationListener
                     requestPermissions(permissionsToRequest.toArray(new String[permissionsToRequest.size()]),
                             ALL_PERMISSIONS_RESULT);
                     Log.d(TAG, "Permission requests");
-                    canGetLocation = false;
+                    //canGetLocation = false;
                 }
             }
 
@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity  implements LocationListener
                 if (lat > 0 && lng > 0){
                     //Toast.makeText(MainActivity.this,Double.toString(lat),Toast.LENGTH_LONG).show();
                     Intent myIntent = new Intent(MainActivity.this, MainActivity2.class);
-                    myIntent.putExtra("message", "hospital");
+                    myIntent.putExtra("message", "health");
                     myIntent.putExtra("latitude",lat);
                     myIntent.putExtra("longitude",lng);
                     MainActivity.this.startActivity(myIntent);
@@ -146,30 +146,27 @@ public class MainActivity extends AppCompatActivity  implements LocationListener
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        if (locationManager != null) {
+            locationManager.removeUpdates(this);
+        }
+    }
+
+    @Override
     public void onProviderDisabled(String s) {
         if (locationManager != null) {
             locationManager.removeUpdates(this);
         }
     }
 
+
+
     private void getLocation() {
         try {
             if (canGetLocation) {
                 Log.d(TAG, "Can get location");
-                if (isGPS) {
-                    // from GPS
-                    Log.d(TAG, "GPS on");
-                    locationManager.requestLocationUpdates(
-                            LocationManager.GPS_PROVIDER,
-                            MIN_TIME_BW_UPDATES,
-                            MIN_DISTANCE_CHANGE_FOR_UPDATES, (LocationListener) this);
-
-                    if (locationManager != null) {
-                        loc = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                        if (loc != null)
-                            updateLocation(loc);
-                    }
-                } else if (isNetwork) {
+                if (isNetwork) {
                     // from Network Provider
                     Log.d(TAG, "NETWORK_PROVIDER on");
                     locationManager.requestLocationUpdates(
@@ -182,6 +179,20 @@ public class MainActivity extends AppCompatActivity  implements LocationListener
                         if (loc != null)
                             updateLocation(loc);
                     }
+                } else if (isGPS) {
+                    // from GPS
+                    Log.d(TAG, "GPS on");
+                    locationManager.requestLocationUpdates(
+                            LocationManager.GPS_PROVIDER,
+                            MIN_TIME_BW_UPDATES,
+                            MIN_DISTANCE_CHANGE_FOR_UPDATES, (LocationListener) this);
+
+                    if (locationManager != null) {
+                        loc = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                        if (loc != null)
+                            updateLocation(loc);
+                    }
+
                 } else {
                     loc.setLatitude(0);
                     loc.setLongitude(0);

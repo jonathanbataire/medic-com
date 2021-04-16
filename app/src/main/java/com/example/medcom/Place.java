@@ -1,15 +1,37 @@
 package com.example.medcom;
 
 public class Place {
-    private static String place_name;
+    private String name;
+    private String placeId;
+    private String vicinity;
 
-    public String getPlaceName(){
-        return place_name;
+    public Place(String name, String vicinity, String placeId){
+        this.name = name;
+        this.vicinity = vicinity;
+        this.placeId = placeId;
     }
-    public void setPlace_name(String name){
-        place_name = name;
+
+    public String getName() {
+        return name;
     }
-    public void reset(){
-        place_name = null;
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPlaceId() {
+        return placeId;
+    }
+
+    public void setPlaceId(String placeId) {
+        this.placeId = placeId;
+    }
+
+    public String getVicinity() {
+        return vicinity;
+    }
+
+    public void setVicinity(String vicinity) {
+        this.vicinity = vicinity;
     }
 }

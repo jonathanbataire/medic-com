@@ -14,12 +14,23 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 
-public class MainActivity2 extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks,
-        GoogleApiClient.OnConnectionFailedListener{
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
+public class MainActivity2 extends AppCompatActivity {
 
     private int PROXIMITY_RADIUS = 10000;
-    GoogleApiClient mGoogleApiClient;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,16 +49,35 @@ public class MainActivity2 extends AppCompatActivity implements GoogleApiClient.
             Log.d("onCreate","Google Play Services available.");
         }
 
-        String url = getUrl(lat, lng, message);
-        Object[] DataTransfer = new Object[1];
-        //DataTransfer[0] = mMap;
-        DataTransfer[0] = url;
-        Log.d("onClick", url);
-        GetNearbyPlacesData getNearbyPlacesData = new GetNearbyPlacesData();
-        getNearbyPlacesData.execute(DataTransfer);
-        Place place = new Place();
-        String x = place.getPlaceName();
-        Toast.makeText(this,x,Toast.LENGTH_LONG).show();
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(APIService.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        APIService apiService = retrofit.create(APIService.class);
+        apiService.getPlaces(message,"distance",message,true,
+                lat + "," + lng,"AIzaSyCw9RLK8bfDuQVfJlUXon9KqQyHIA6D1kY")
+                .enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                JsonObject places = response.body();
+                assert places != null;
+                JsonArray results = places.getAsJsonArray("results");
+                Gson gson = new Gson();
+                Type placeListType = new TypeToken<ArrayList<Place>>(){}.getType();
+
+                ArrayList<Place> placesArray = gson.fromJson(results, placeListType);
+
+
+
+
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+                Toast.makeText(MainActivity2.this,"Error fetching data",Toast.LENGTH_LONG).show();
+            }
+        });
+
     }
 
     @Override
@@ -55,14 +85,6 @@ public class MainActivity2 extends AppCompatActivity implements GoogleApiClient.
         super.onBackPressed();
     }
 
-    protected synchronized void buildGoogleApiClient() {
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .addConnectionCallbacks(this)
-                .addOnConnectionFailedListener(this)
-                .addApi(LocationServices.API)
-                .build();
-        mGoogleApiClient.connect();
-    }
     private boolean CheckGooglePlayServices() {
         GoogleApiAvailability googleAPI = GoogleApiAvailability.getInstance();
         int result = googleAPI.isGooglePlayServicesAvailable(this);
@@ -75,7 +97,7 @@ public class MainActivity2 extends AppCompatActivity implements GoogleApiClient.
         }
         return true;
     }
-    private String getUrl(double latitude, double longitude, String nearbyPlace) {
+   /* private String getUrl(double latitude, double longitude, String nearbyPlace) {
 
         StringBuilder googlePlacesUrl = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
         googlePlacesUrl.append("location=" + latitude + "," + longitude);
@@ -84,24 +106,10 @@ public class MainActivity2 extends AppCompatActivity implements GoogleApiClient.
         googlePlacesUrl.append("&sensor=true");
         googlePlacesUrl.append("&rankby=distance");
         googlePlacesUrl.append("&keyword=" + nearbyPlace);
-        googlePlacesUrl.append("&key=" + "AIzaSyDmL8rLlw75D7Lc7l0WtuUqYXXaZxJF63E");
+        googlePlacesUrl.append("&key=" + "AIzaSyBYWW2t_dbOvdGLB8KodXnCOfxUB7VoA1c");
         Log.d("getUrl", googlePlacesUrl.toString());
         return (googlePlacesUrl.toString());
     }
-
-    @Override
-    public void onConnected(@Nullable Bundle bundle) {
-
-    }
-
-    @Override
-    public void onConnectionSuspended(int i) {
-
-    }
-
-    @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-
-    }
+*/
 
 }
