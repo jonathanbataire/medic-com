@@ -1,5 +1,6 @@
 package com.example.medcom;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -38,10 +39,11 @@ public class MainActivity extends AppCompatActivity  implements LocationListener
     ArrayList<String> permissionsRejected = new ArrayList<>();
     boolean isGPS = false;
     boolean isNetwork = false;
-    boolean canGetLocation = true;
+    boolean canGetLocation = false;
     LocationManager locationManager;
     Location loc;
     private double lat,lng;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,28 +65,27 @@ public class MainActivity extends AppCompatActivity  implements LocationListener
         permissions.add(Manifest.permission.ACCESS_COARSE_LOCATION);
         permissionsToRequest = findUnAskedPermissions(permissions);
 
+        if (permissionsToRequest.size() > 0){
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                requestPermissions(permissionsToRequest.toArray(new String[permissionsToRequest.size()]),
+                        ALL_PERMISSIONS_RESULT);
+                Log.d(TAG, "Permission requests");
+            }
+        }
+
+        canGetLocation = !(permissionsToRequest.size() > 0);
+
         if (!isGPS && !isNetwork) {
             Log.d(TAG, "Connection off");
             showSettingsAlert();
-            getLastLocation();
-        } else {
-            Log.d(TAG, "Connection on");
-            // check permissions
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                if (permissionsToRequest.size() > 0) {
-                    requestPermissions(permissionsToRequest.toArray(new String[permissionsToRequest.size()]),
-                            ALL_PERMISSIONS_RESULT);
-                    Log.d(TAG, "Permission requests");
-                    //canGetLocation = false;
-                }
-            }
-
-            // get location
+        }else {
             getLocation();
         }
+
         hospital.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 if (lat > 0 && lng > 0){
                     //Toast.makeText(MainActivity.this,Double.toString(lat),Toast.LENGTH_LONG).show();
                     Intent myIntent = new Intent(MainActivity.this, PlacesActivity.class);
@@ -93,7 +94,7 @@ public class MainActivity extends AppCompatActivity  implements LocationListener
                     myIntent.putExtra("longitude",lng);
                     MainActivity.this.startActivity(myIntent);
                 }else {
-                    Toast.makeText(MainActivity.this,"Obtaining current Location....",Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this,"Obtaining your current location",Toast.LENGTH_LONG).show();
                 }
 
             }
@@ -105,12 +106,12 @@ public class MainActivity extends AppCompatActivity  implements LocationListener
                 if (lat > 0 && lng > 0){
                     //Toast.makeText(MainActivity.this,Double.toString(lat),Toast.LENGTH_LONG).show();
                     Intent myIntent = new Intent(MainActivity.this, PlacesActivity.class);
-                    myIntent.putExtra("message", "fire");
+                    myIntent.putExtra("message", "fire station");
                     myIntent.putExtra("latitude",lat);
                     myIntent.putExtra("longitude",lng);
                     MainActivity.this.startActivity(myIntent);
                 }else {
-                    Toast.makeText(MainActivity.this,"Obtaining current Location....",Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this,"Obtaining current Location",Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -125,10 +126,18 @@ public class MainActivity extends AppCompatActivity  implements LocationListener
                     myIntent.putExtra("longitude",lng);
                     MainActivity.this.startActivity(myIntent);
                 }else {
-                    Toast.makeText(MainActivity.this,"Obtaining current Location....",Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this,"Obtaining current Location",Toast.LENGTH_LONG).show();
                 }
             }
         });
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d(TAG, "resumed.....");
+        getLocation();
     }
 
     @Override
@@ -144,6 +153,7 @@ public class MainActivity extends AppCompatActivity  implements LocationListener
     public void onProviderEnabled(String s) {
         getLocation();
     }
+
 
     @Override
     protected void onPause() {
@@ -194,9 +204,14 @@ public class MainActivity extends AppCompatActivity  implements LocationListener
                     }
 
                 } else {
-                    loc.setLatitude(0);
-                    loc.setLongitude(0);
-                    updateLocation(loc);
+                    if (locationManager != null){
+                        loc = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+                        if (loc != null){
+                            loc.setLatitude(0);
+                            loc.setLongitude(0);
+                            updateLocation(loc);
+                        }
+                    }
                 }
             } else {
                 Log.d(TAG, "Can't get location");
@@ -311,7 +326,7 @@ public class MainActivity extends AppCompatActivity  implements LocationListener
 
     private void updateLocation(Location loc) {
         Log.d(TAG, "updateLocation");
-        Toast.makeText(this, Double.toString(loc.getLatitude()) + " hey",Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, Double.toString(loc.getLatitude()) + " hey",Toast.LENGTH_LONG).show();
         lat = loc.getLatitude();
         lng = loc.getLongitude();
         //DateFormat.getTimeInstance().format(loc.getTime();

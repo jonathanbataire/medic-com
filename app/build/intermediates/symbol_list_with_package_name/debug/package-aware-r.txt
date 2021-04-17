@@ -806,6 +806,7 @@ color foreground_material_dark
 color foreground_material_light
 color highlighted_text_material_dark
 color highlighted_text_material_light
+color ic_launcher_background
 color material_blue_grey_800
 color material_blue_grey_900
 color material_blue_grey_950
@@ -1317,6 +1318,7 @@ id all
 id always
 id animateToEnd
 id animateToStart
+id appBarLayout
 id asConfigured
 id async
 id auto
@@ -1447,6 +1449,7 @@ id multiply
 id name
 id navigation_header_container
 id never
+id no_result
 id none
 id normal
 id notification_background
@@ -1669,6 +1672,7 @@ layout select_dialog_singlechoice_material
 layout support_simple_spinner_dropdown_item
 menu main_activity_bar
 mipmap ic_launcher
+mipmap ic_launcher_foreground
 mipmap ic_launcher_round
 string abc_action_bar_home_description
 string abc_action_bar_up_description
@@ -1724,15 +1728,18 @@ string common_signin_button_text
 string common_signin_button_text_long
 string fab_transformation_scrim_behavior
 string fab_transformation_sheet_behavior
+string fire_card_text
 string hide_bottom_view_on_scroll_behavior
 string hospital_card_text
 string message_select_option
 string mtrl_chip_close_icon_content_description
+string no_results_found
 string password_toggle_content_description
 string path_password_eye
 string path_password_eye_mask_strike_through
 string path_password_eye_mask_visible
 string path_password_strike_through
+string police_card_text
 string request
 string search_menu_title
 string status_bar_notification_info_overflow

@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 public class PlacesRecyclerAdapter extends RecyclerView.Adapter<PlacesRecyclerAdapter.ViewHolder> {
@@ -20,6 +22,7 @@ public class PlacesRecyclerAdapter extends RecyclerView.Adapter<PlacesRecyclerAd
     private ArrayList<Place> placesArrayList;
     private final LayoutInflater mLayoutInflater;
     private int currentPosition;
+    private View.OnClickListener mOnClickListener;
 
     public PlacesRecyclerAdapter(Context context, ArrayList<Place> placesData){
         mContext = context;
@@ -49,6 +52,10 @@ public class PlacesRecyclerAdapter extends RecyclerView.Adapter<PlacesRecyclerAd
         return placesArrayList.size();
     }
 
+    public void setOnItemClickListener(View.OnClickListener itemClickListener) {
+        mOnClickListener = itemClickListener;
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView vicinity;
         private final TextView name;
@@ -59,6 +66,8 @@ public class PlacesRecyclerAdapter extends RecyclerView.Adapter<PlacesRecyclerAd
             name = itemView.findViewById(R.id.name);
             vicinity = itemView.findViewById(R.id.vicinity);
             image = itemView.findViewById(R.id.image);
+            itemView.setTag(this);
+            itemView.setOnClickListener(mOnClickListener);
         }
     }
 }

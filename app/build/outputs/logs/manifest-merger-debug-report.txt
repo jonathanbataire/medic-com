@@ -114,7 +114,7 @@ MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] /home/jonat
 	android:theme
 		ADDED from /home/jonathan/jonathan/medic-repo/MedCom/app/src/main/AndroidManifest.xml:14:9-40
 activity#com.example.medcom.PlacesActivity
-ADDED from /home/jonathan/jonathan/medic-repo/MedCom/app/src/main/AndroidManifest.xml:15:9-61
+ADDED from /home/jonathan/jonathan/medic-repo/MedCom/app/src/main/AndroidManifest.xml:15:9-52
 	android:name
 		ADDED from /home/jonathan/jonathan/medic-repo/MedCom/app/src/main/AndroidManifest.xml:15:19-49
 activity#com.example.medcom.MainActivity
